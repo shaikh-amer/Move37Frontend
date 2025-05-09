@@ -1,0 +1,68 @@
+.subtitle {
+  position: absolute;
+  bottom: 10%; /* Lower subtitle placement to match final video */
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgb(255, 255, 255);
+  font-size: 16px;
+  padding: 8px 2px;
+  background: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  text-align: center;
+  width: 100%; /* Makes subtitle span most of the width */
+  max-width: 100%;
+  white-space: normal; /* Allows proper text wrapping */
+  font-weight: normal;
+  pointer-events: none;
+}
+/* top-0 left-0 flex justify-center items-end pointer-events-none px-8 pb-20 */
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .subtitle {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+}
+
+/* Ensure Video Player Buttons Are Clearly Visible */
+.react-player__controls {
+  pointer-events: auto !important;
+  filter: brightness(1.8) contrast(1.5); /* Makes buttons more visible */
+  opacity: 1 !important; /* Ensures they are fully visible */
+}
+
+/* Ensure Volume and Other Buttons Are Clickable */
+.react-player__controls button {
+  pointer-events: auto; /* Ensures clicks go through */
+}
+
+.react-player-wrapper {
+  width: 100%;
+  max-width: 900px; /* Adjust based on your layout */
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.react-player {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 9; /* This ensures the aspect ratio is locked */
+  max-width: 100%;
+}
+.video-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 90vw; /* Prevents oversized video */
+  max-height: 80vh; /* Ensures it stays inside the screen */
+  overflow: hidden; /* Hides overflow */
+}

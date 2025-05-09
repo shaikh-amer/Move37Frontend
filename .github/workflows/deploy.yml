@@ -1,0 +1,28 @@
+name: CI/CD Pipeline for Move37 Frontend
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.FRONTEND_SSH_KEY }}
+
+      - name: Deploy to Stage Frontend Server
+        run: |
+          ssh -o StrictHostKeyChecking=no ${{ secrets.FRONTEND_USER }}@${{ secrets.FRONTEND_HOST }} << 'EOF'
+          cd /home/ubuntu/Move37Frontend || exit 1
+          git pull || exit 1
+          bun i || exit 1
+          bun run build || exit 1
+          pm2 restart all --update-env || pm2 start "bun run start" --name move-37-frontend --update-env
+          EOF
